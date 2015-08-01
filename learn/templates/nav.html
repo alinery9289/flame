@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="static/css/login.css" />
+</head>
+<body>
+<div style="display:none" id="judgeloginornot"></div>
+<div style="display:none" id="judgeloginstate"></div>
+<div id="header">
+  <div > 
+  	<div class="leadinglist fl" >
+  		<ul>
+  			<li><a href="/" style="background:#505050">图像识别</a></li>
+		</ul>
+  	</div>
+    <div class="login fr" id="loginregdiv" style="display:none;">
+      <div class="loginmenu"><a title="登录或注册"></a></div>
+      <ul>
+        <li class="openlogin"><a href="" onclick="return false;">登录</a></li>
+        <li class="reg"><a href="" onclick="return false;">注册</a></li>
+      </ul>
+    </div>   
+    <div class="login fr" id="logineddiv" style="display:none;">
+    	<div id="logineduserdiv" style="float:left" ></div>
+    	<div class="logout">&nbsp;&nbsp;<a href="/" onclick="logout()">退出</a></div> 
+    </div>
+    <div class="clear"></div>
+  </div>
+</div>
+<div class="clear"></div>
+<div class="loginmask"></div>
+<div id="loginalert">
+  <div class="pd20 loginpd">
+    <h3><i class="closealert fr"></i>
+    </h3>
+    <div class="loginwrap">
+      <div class="loginh">
+        <div class="fl">登录</div>
+        <div class="fr">还没有账号<a id="sigup_now" href="http://sc.chinaz.com/" onclick="return false;">立即注册</a></div>
+        <div class="clear"></div>
+      </div>
+      <h3><span>账户登录</span><span class="login_warning">用户名或密码错误</span>
+      </h3>
+      <div class="clear"></div>
+      <form  method="post" action="/medialabWebapp/rest/user" id="login_form" onsubmit="return checkBeforeLogin()">
+        <div class="logininput">
+          <input type="text" name="userid" id="userid" class="loginusername" value="用户名" onblur="judgeUserid('userid','useridnotes')"/>
+          <p id="useridnotes"></p><br/>
+          <input type="password" name="password" id="password" class="loginuserpasswordp" style="display:none" onblur="judgePassword('password','passwordnotes')"/>
+          <input type="text" class="loginuserpasswordt" value="密码" /><br/>
+          <div id="passwordnotes"></div>
+        </div>
+        <div class="loginbtn">
+          <div class="loginsubmit fl">
+            <input type="submit"  value="登录" id="login_submitbtn" />
+          </div>
+          <div class="fr"><a id="frgetpw" href="/medialabWebapp/resetPassword.html">忘记密码?</a></div>
+          <div class="clear"></div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div id="reg_setp">
+  <div class="back_setp">返回</div>
+  <div class="blogo"><h2>用户注册界面</h2></div>
+  <div id="setp_quicklogin">
+     <form  method="post" id="reg_form" action="/medialabWebapp/rest/user/Registration" onsubmit="return checkBeforeReg()">
+        <div class="logininput">
+          <input type="text" name="userid" id="reg_userid" class="reg_username" value="用户名" onblur="judgeUserid('reg_userid','reg_useridnotes')"/>
+          <p id="reg_useridnotes"></p><br/>
+          <input type="text" name="email" id="reg_email" class="reg_useremail" value="邮箱,用于找回密码" onblur="judgeEmail('reg_email','reg_emailnotes')"/>
+          <p id="reg_emailnotes"></p><br/>
+          <input type="password" name="password" id="reg_password" class="reg_userpasswordp" style="display:none" onblur="judgePassword('reg_password','reg_passwordnotes')"/>
+          <input type="text" class="reg_userpasswordt" value="请输入密码" /><div id="reg_passwordnotes"></div><br/>
+          <input type="password" name="check_password" id="check_reg_password" class="check_reg_userpasswordp" style="display:none" onblur="checkpassword()"/>
+          <input type="text" class="check_reg_userpasswordt" value="请再次输入密码" /><div id="check_reg_passwordnotes"></div><br/>
+        </div>
+        <div class="loginbtn"  style="position:absolute; left:135px">
+          <div class="loginsubmit fl">
+            <input type="submit" value="注册"  id="reg_submitbtn" />
+          </div>
+          <div class="clear"></div>
+        </div>
+      </form>
+  </div>
+</div>
+</body>
+</html>
