@@ -1,6 +1,6 @@
 #coding=utf-8
 '''
-    ftp自动下载、自动上传脚本，可以递归目录操作
+    ftp
 '''
 
 from ftplib import FTP
@@ -22,7 +22,7 @@ class MYFTP:
         # self.ftp.set_debuglevel(0)
     def login(self):
         ftp = self.ftp
-        try: 
+        try:
             timeout = 300
             socket.setdefaulttimeout(timeout)
             ftp.set_pasv(True)
@@ -62,7 +62,8 @@ class MYFTP:
 #             debug_print(u'>>>>>>>>>>>>下载文件 %s ... ...' %localfile)
         #return
         file_handler = open(localfile, 'wb')
-        self.ftp.retrbinary(u'RETR %s'%(remotefile), file_handler.write)
+        print("getting remote file ... ", remotefile)
+        self.ftp.retrbinary('RETR ' + remotefile, file_handler.write)
         file_handler.close()
 
     def download_files(self, localdir='./', remotedir='./'):
@@ -121,7 +122,7 @@ class MYFTP:
         file_arr = self.get_filename(line)
         if file_arr[1] not in ['.', '..']:
             self.file_list.append(file_arr)
-            
+
     def get_filename(self, line):
         pos = line.rfind(':')
         while(line[pos] != ' '):
@@ -141,14 +142,14 @@ def debug_print(s):
 #     hostaddr = '211.15.113.45' # ftp地址
 #     username = 'UserName' # 用户名
 #     password = '123456' # 密码
-#     port  =  21   # 端口号 
+#     port  =  21   # 端口号
 #     rootdir_local  = 'E:/mypiv' # 本地目录
 #     rootdir_remote = '/PIV'          # 远程目录
-#     
+#
 #     f = MYFTP(hostaddr, username, password, rootdir_remote, port)
 #     f.login()
 #     f.download_files(rootdir_local, rootdir_remote)
-#     
+#
 #     timenow  = time.localtime()
 #     datenow  = time.strftime('%Y-%m-%d', timenow)
 #     logstr = u"%s 成功执行了备份\n" %datenow

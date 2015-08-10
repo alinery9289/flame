@@ -177,5 +177,36 @@ function refreshUser(value){
    });
 }
 
+//var imaRec_timeout= [];
+var img_timer;
+function gettalkword(imageId){
+	$.ajax({
+        type : "GET",  
+        url : "/imagerec/imagerecstate/"+imageId,
+        dataType: "text",  
+        success : function(data) { 
+        	if (data!="Processing"){
+        		var imagerec_state=[];
+        		imagerec_state=data.split("\n");
+        		for (var i=0;i<imagerec_state.length-1;i++){
+        			$('#imageInf').append($('<li>').text(imagerec_state[i]));
+        		}
+        		clearTimeout(img_timer);
+//            	var fileIndex=$('#imageInf').find("li").length;
+//    	        var fileNum=$('.upload_preview').find("div.upload_append_list").length;
+//    	        if (fileIndex >= fileNum){
+    	        $("#imageProcessState").text("Upload Successful! Processing Successful!");
+//    	        }
+        	}
+        	else {
+        		img_timer=setTimeout("gettalkword('"+imageId+"')",3000);
+        	}
+        },
+		error :  function() {  
+           //do something 
+        }
+   });
+}
+
 
 

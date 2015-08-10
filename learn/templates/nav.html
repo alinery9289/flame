@@ -11,19 +11,19 @@
   <div > 
   	<div class="leadinglist fl" >
   		<ul>
-  			<li><a href="/" style="background:#505050">图像识别</a></li>
+  			<li><a href="/imagerec" style="background:#505050">Recognition</a></li>
 		</ul>
   	</div>
     <div class="login fr" id="loginregdiv" style="display:none;">
-      <div class="loginmenu"><a title="登录或注册"></a></div>
+      <div class="loginmenu"><a title="Login or Register"></a></div>
       <ul>
-        <li class="openlogin"><a href="" onclick="return false;">登录</a></li>
-        <li class="reg"><a href="" onclick="return false;">注册</a></li>
+        <li class="openlogin"><a href="" onclick="return false;">Login</a></li>
+        <li class="reg"><a href="" onclick="return false;">Register</a></li>
       </ul>
     </div>   
     <div class="login fr" id="logineddiv" style="display:none;">
     	<div id="logineduserdiv" style="float:left" ></div>
-    	<div class="logout">&nbsp;&nbsp;<a href="/" onclick="logout()">退出</a></div> 
+    	<div class="logout">&nbsp;&nbsp;<a href="/" onclick="logout()">logout</a></div> 
     </div>
     <div class="clear"></div>
   </div>
@@ -36,26 +36,26 @@
     </h3>
     <div class="loginwrap">
       <div class="loginh">
-        <div class="fl">登录</div>
-        <div class="fr">还没有账号<a id="sigup_now" href="http://sc.chinaz.com/" onclick="return false;">立即注册</a></div>
+        <div class="fl">Login</div>
+        <div class="fr">Don't have username?<a id="sigup_now" href="http://sc.chinaz.com/" onclick="return false;">Register now!</a></div>
         <div class="clear"></div>
       </div>
-      <h3><span>账户登录</span><span class="login_warning">用户名或密码错误</span>
+      <h3><span>User Login</span><span class="login_warning">Username or password is wrong!</span>
       </h3>
       <div class="clear"></div>
       <form  method="post" action="/medialabWebapp/rest/user" id="login_form" onsubmit="return checkBeforeLogin()">
         <div class="logininput">
-          <input type="text" name="userid" id="userid" class="loginusername" value="用户名" onblur="judgeUserid('userid','useridnotes')"/>
+          <input type="text" name="userid" id="userid" class="loginusername" value="Username" onblur="judgeUserid('userid','useridnotes')"/>
           <p id="useridnotes"></p><br/>
           <input type="password" name="password" id="password" class="loginuserpasswordp" style="display:none" onblur="judgePassword('password','passwordnotes')"/>
-          <input type="text" class="loginuserpasswordt" value="密码" /><br/>
+          <input type="text" class="loginuserpasswordt" value="Password" /><br/>
           <div id="passwordnotes"></div>
         </div>
         <div class="loginbtn">
           <div class="loginsubmit fl">
-            <input type="submit"  value="登录" id="login_submitbtn" />
+            <input type="submit"  value="Login" id="login_submitbtn" />
           </div>
-          <div class="fr"><a id="frgetpw" href="/medialabWebapp/resetPassword.html">忘记密码?</a></div>
+          <div class="fr"><a id="frgetpw" href="/medialabWebapp/resetPassword.html">Forget your password?</a></div>
           <div class="clear"></div>
         </div>
       </form>
@@ -64,23 +64,23 @@
 </div>
 
 <div id="reg_setp">
-  <div class="back_setp">返回</div>
-  <div class="blogo"><h2>用户注册界面</h2></div>
+  <div class="back_setp">Back</div>
+  <div class="blogo"><h2>User Registration</h2></div>
   <div id="setp_quicklogin">
      <form  method="post" id="reg_form" action="/medialabWebapp/rest/user/Registration" onsubmit="return checkBeforeReg()">
         <div class="logininput">
-          <input type="text" name="userid" id="reg_userid" class="reg_username" value="用户名" onblur="judgeUserid('reg_userid','reg_useridnotes')"/>
+          <input type="text" name="userid" id="reg_userid" class="reg_username" value="Username" onblur="judgeUserid('reg_userid','reg_useridnotes')"/>
           <p id="reg_useridnotes"></p><br/>
-          <input type="text" name="email" id="reg_email" class="reg_useremail" value="邮箱,用于找回密码" onblur="judgeEmail('reg_email','reg_emailnotes')"/>
+          <input type="text" name="email" id="reg_email" class="reg_useremail" value="email used to reset your password" onblur="judgeEmail('reg_email','reg_emailnotes')"/>
           <p id="reg_emailnotes"></p><br/>
           <input type="password" name="password" id="reg_password" class="reg_userpasswordp" style="display:none" onblur="judgePassword('reg_password','reg_passwordnotes')"/>
-          <input type="text" class="reg_userpasswordt" value="请输入密码" /><div id="reg_passwordnotes"></div><br/>
+          <input type="text" class="reg_userpasswordt" value="input your password" /><div id="reg_passwordnotes"></div><br/>
           <input type="password" name="check_password" id="check_reg_password" class="check_reg_userpasswordp" style="display:none" onblur="checkpassword()"/>
-          <input type="text" class="check_reg_userpasswordt" value="请再次输入密码" /><div id="check_reg_passwordnotes"></div><br/>
+          <input type="text" class="check_reg_userpasswordt" value="input your password again" /><div id="check_reg_passwordnotes"></div><br/>
         </div>
         <div class="loginbtn"  style="position:absolute; left:135px">
           <div class="loginsubmit fl">
-            <input type="submit" value="注册"  id="reg_submitbtn" />
+            <input type="submit" value="Register"  id="reg_submitbtn" />
           </div>
           <div class="clear"></div>
         </div>

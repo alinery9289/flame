@@ -6,6 +6,7 @@ var io = require('socket.io')(http);
 var redis = require('redis');
 
 var redis_client = redis.createClient(6379, '127.0.0.1');
+redis_client.auth(123456)
 
 //connect to redis-server on host:'192.168.6.159'
 //var redis_client = redis.createClient(6379, '192.168.6.159');

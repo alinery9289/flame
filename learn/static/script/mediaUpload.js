@@ -21,7 +21,7 @@ $(function(){
 //					height           : "200px",  					// 宽度
 					itemWidth        : "140px",                     // 文件项的宽度
 					itemHeight       : "120px",                     // 文件项的高度
-					url              : "/mediafile",  	// 上传文件的路径
+					url              : "http://medialab.sjtu.edu.cn/imagerec/mediafile",  	// 上传文件的路径
 					multiple         : true,  						// 是否可以多个文件上传
 					dragDrop         : true,  						// 是否可以拖动上传文件
 					del              : true,  						// 是否可以删除文件
@@ -59,25 +59,26 @@ $(function(){
 					html += '			<div class="upload_choose">';
 	            	html += '				<div class="convent_choice">';
 	            	html += '					<div class="andArea">';
-	            	html += '						<div class="filePicker">点击选择文件</div>';
-	            	html += '						<input id="fileImage" type="file" size="30" accept="image/*,video/*" name="fileselect[]" '+multiple+'>';
+	            	html += '						<div class="filePicker">select files</div>';
+	            	html += '						<input id="fileImage" type="file" size="30" accept="image/*" name="fileselect[]" '+multiple+'>';
 	            	html += '					</div>';
 	            	html += '				</div>';
-					html += '				<span id="fileDragArea" class="upload_drag_area">或者将文件拖到此处</span>';
+					html += '				<span id="fileDragArea" class="upload_drag_area">Drag file here to upload.</span>';
 					html += '			</div>';
 		            html += '			<div class="status_bar">';
-		            html += '				<div id="status_info" class="info">已选中0个文件，共0B。</div>';
+		            html += '				<div id="status_info" class="info">0 file selected, 0B total。</div>';
 		            html += '				<div class="btns">';
-		            html += '					<div class="webuploader_pick">继续选择</div>';
-		            html += '					<div class="upload_btn">开始上传</div>';
+		            html += '					<div class="webuploader_pick">Select</div>';
+		            html += '					<div class="upload_btn">Upload</div>';
 		            html += '				</div>';
 		            html += '			</div>';
 					html += '			<div id="preview" class="upload_preview"></div>';
 					html += '		</div>';
 					html += '		<div class="upload_submit">';
-					html += '			<button type="button" id="fileSubmit" class="upload_submit_btn">确认上传文件</button>';
+					html += '			<button type="button" id="fileSubmit" class="upload_submit_btn">Sure to upload</button>';
 					html += '		</div>';
 					html += '		<div id="uploadInf" class="upload_inf"></div>';
+					html += '		<div id="imageInf" class="upload_inf"></div>';
 					html += '	</div>';
 					html += '</form>';
 				}else{
@@ -88,16 +89,16 @@ $(function(){
 					html += '	<div class="upload_box">';
 					html += '		<div class="upload_main single_main">';
 		            html += '			<div class="status_bar">';
-		            html += '				<div id="status_info" class="info">选中0张文件，共0B。</div>';
+		            html += '				<div id="status_info" class="info">0 file selected, 0B total。</div>';
 		            html += '				<div class="btns">';
-		            html += '					<input accept="image/*,video/*" id="fileImage" type="file" size="30" name="fileselect[]" '+multiple+'>';
-		            html += '					<div class="webuploader_pick">选择文件</div>';
-		            html += '					<div class="upload_btn">开始上传</div>';
+		            html += '					<input accept="image/*" id="fileImage" type="file" size="30" name="fileselect[]" '+multiple+'>';
+		            html += '					<div class="webuploader_pick">Select</div>';
+		            html += '					<div class="upload_btn">Upload</div>';
 		            html += '				</div>';
 		            html += '			</div>';
 		            html += '			<div id="preview" class="upload_preview">';
 				    html += '				<div class="add_upload">';
-				    html += '					<a style="height:'+para.itemHeight+';width:'+para.itemWidth+';" title="点击添加文件" id="rapidAddImg" class="add_imgBox" href="javascript:void(0)">';
+				    html += '					<a style="height:'+para.itemHeight+';width:'+para.itemWidth+';" title="click to add files" id="rapidAddImg" class="add_imgBox" href="javascript:void(0)">';
 				    html += '						<div class="uploadImg" style="width:'+imgWidth+'px">';
 				    html += '							<img class="upload_image" src="static/images/add_img.png" style="width:expression(this.width > '+imgWidth+' ? '+imgWidth+'px : this.width)" />';
 				    html += '						</div>';
@@ -106,7 +107,7 @@ $(function(){
 					html += '			</div>';
 					html += '		</div>';
 					html += '		<div class="upload_submit">';
-					html += '			<button type="button" id="fileSubmit" class="upload_submit_btn">确认上传文件</button>';
+					html += '			<button type="button" id="fileSubmit" class="upload_submit_btn">Sure to upload</button>';
 					html += '		</div>';
 					html += '		<div id="uploadInf" class="upload_inf"></div>';
 					html += '	</div>';
@@ -140,7 +141,7 @@ $(function(){
 				}  
 				
 				// 设置内容
-				$("#status_info").html("已选择"+num+"个文件，共"+size+"。");
+				$("#status_info").html(num+" files selected, "+size+" total。");
 			};
 			
 			/**
@@ -152,7 +153,7 @@ $(function(){
 				var arrFiles = [];  // 替换的文件数组
 				for (var i = 0, file; file = files[i]; i++) {
 					if (file.size >= 51200000) {
-						alert('您这个"'+ file.name +'"文件大小过大');	
+						alert('"'+ file.name +'" is too large.');	
 					} else {
 						// 在这里需要判断当前所有文件中
 						arrFiles.push(file);	
@@ -173,7 +174,7 @@ $(function(){
 				// 处理配置参数删除按钮
 				var delHtml = "";
 				if(para.del){  // 显示删除按钮
-					delHtml = '<span class="file_del" data-index="'+file.index+'" title="删除"></span>';
+					delHtml = '<span class="file_del" data-index="'+file.index+'" title="delete"></span>';
 				}
 				
 				// 处理不同类型文件代表的图标
@@ -195,7 +196,7 @@ $(function(){
 					html += '		</div>';
 					html += '	</a>';
 					html += '	<p id="uploadProgress_'+file.index+'" class="file_progress"></p>';
-					html += '	<p id="uploadFailure_'+file.index+'" class="file_failure">上传失败，请重试</p>';
+					html += '	<p id="uploadFailure_'+file.index+'" class="file_failure">fail to upload, please try again.</p>';
 					html += '	<p id="uploadSuccess_'+file.index+'" class="file_success"></p>';
 					html += '</div>';
                 	
@@ -213,7 +214,7 @@ $(function(){
 					html += '		</div>';
 					html += '	</a>';
 					html += '	<p id="uploadProgress_'+file.index+'" class="file_progress"></p>';
-					html += '	<p id="uploadFailure_'+file.index+'" class="file_failure">上传失败，请重试</p>';
+					html += '	<p id="uploadFailure_'+file.index+'" class="file_failure">fail to upload, please try again.</p>';
 					html += '	<p id="uploadSuccess_'+file.index+'" class="file_success"></p>';
 					html += '</div>';
 				}
@@ -251,7 +252,7 @@ $(function(){
 									html += self.funDisposePreviewHtml(file, e);
 									
 									i++;
-									// 再接着调用此方法递归组成可以预览的html
+									// 再接着调用此方法递归组成可以预览	的html
 									funDealtPreviewHtml();
 								}
 								reader.readAsDataURL(file);
@@ -322,18 +323,11 @@ $(function(){
 						}
 						eleProgress.css("width",percent);
 					},
-					onSuccess: function(file, response) {
+					onSuccess: function(file) {
 						$("#uploadProgress_" + file.index).hide();
 						$("#uploadSuccess_" + file.index).show();
-//						$("#uploadInf").append("<p>上传成功，文件地址是：" + response + "</p>");
-						// 根据配置参数确定隐不隐藏上传成功的文件
-
-						var socket = io.connect('http://192.168.112.74:3000');
-					    socket.on('chatMessage'+response, function(msg){
-					        $('#messages').append($('<li>').text(msg));
-					    });
-
 //			    		refreshUser(authcode);
+						
 						if(para.finishDel){
 							// 移除效果
 							$("#uploadList_" + file.index).fadeOut();
@@ -344,11 +338,12 @@ $(function(){
 					onFailure: function(file) {
 						$("#uploadProgress_" + file.index).hide();
 						$("#uploadSuccess_" + file.index).show();
-						$("#uploadInf").append("<p>文件" + file.name + "上传失败！</p>");	
+						$("#uploadInf").append("<p>文件" + file.name + "Upload failed.</p>");	
 						//$("#uploadImage_" + file.index).css("opacity", 0.2);
 					},
 					onComplete: function(response){
-						console.info(response);
+						$("#uploadInf").append("<p id='imageProcessState'>Upload Successful! Processing images: estimate to be finished in 40 seconds ...</p>");
+						gettalkword(response);
 					},
 					onDragOver: function() {
 						$(this).addClass("upload_drag_hover");
@@ -406,16 +401,4 @@ $(function(){
 			this.init();
 		});
 	};
-	function getSessionId(){
-		var c_name = 'csrftoken';
-		if(document.cookie.length>0){
-		      c_start=document.cookie.indexOf(c_name + "=")
-		      if(c_start!=-1){ 
-		        c_start=c_start + c_name.length+1 
-		        c_end=document.cookie.indexOf(";",c_start)
-		        if(c_end==-1) c_end=document.cookie.length
-		        return unescape(document.cookie.substring(c_start,c_end));
-		      }
-		}
-	}
 });

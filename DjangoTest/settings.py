@@ -122,12 +122,12 @@ CELERY_TIMEZONE = 'Asia/Shanghai'
 from datetime import timedelta
 from celery.schedules import crontab
 
-CELERY_IMPORTS = ("celeryapp.tasks")
+CELERY_IMPORTS = ("learn.tasks")
 
 CELERYBEAT_SCHEDULE = {
         # Executes every Monday morning at 7:30 A.M
         'del-image-every-night': {
-            'task': 'celeryapp.tasks.recognize_image',
+            'task': 'learn.tasks.recognize_image',
             #'schedule': crontab(hour=7, minute=30, day_of_week=1),
 
             # schedule every 1 minute
@@ -149,7 +149,7 @@ CELERYBEAT_SCHEDULE = {
 # the web server (django node) IP address
 BROKER_URL = 'amqp://guest:guest@172.16.6.157:5672'
 CELERY_RESULT_BACKEND = 'amqp://'
- 
+
 BROKER_HOST = "localhost"
 BROKER_PORT = 5672
 BROKER_USER = "guest"
@@ -164,6 +164,6 @@ BROKER_VHOST = "/"
 # "python manager.py celery worker -Q priority.high"
 
 # CELERY_ROUTES = {
-#         'celeryapp.tasks.stabilize_video': {'queue': 'video.stabilization'},
-#         'celeryapp.tasks.recognize_image': {'queue': 'image.recognition'}
+#         'learn.tasks.stabilize_video': {'queue': 'video.stabilization'},
+#         'learn.tasks.recognize_image': {'queue': 'image.recognition'}
 # }

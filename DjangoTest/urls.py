@@ -17,9 +17,12 @@ from django.conf.urls import include, url
 from django.contrib import admin
 
 urlpatterns = [
-    url(r'^$', 'learn.views.home', name='home'),
-    url(r'^user', 'learn.views.userProc', name='userProc'),
-    url(r'^mediafile', 'learn.views.mediaFileProc', name='mediaFileProc'),
+    url(r'^$', 'learn.views.home', name='home'), 
+    url(r'^uploadtest$', 'learn.views.testPage', name='test'),
+    url(r'^user$', 'learn.views.userProc', name='userProc'),
+    url(r'^mediafile$', 'learn.views.mediaFileProc', name='mediaFileProc'),
+    url(r'^imagerecstate/([a-zA-Z0-9]{32})$', 'learn.views.getImageRec', name='getImageRec'),
     url(r'^testJson/(\d{1,2})/(\d{1,2})$', 'learn.views.testJson', name='testJson'),
     url(r'^admin/', include(admin.site.urls)),
 ]
+

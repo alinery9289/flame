@@ -96,7 +96,7 @@ var ZYFILE = {
 			
 			// 执行选择回调
 			this.onSelect(selectFile, this.uploadFile);
-			console.info("继续选择");
+			console.info("continue to select");
 			console.info(this.uploadFile);
 			return this;
 		},
@@ -124,7 +124,7 @@ var ZYFILE = {
 				self.onDelete(delFile, this.uploadFile);
 			}
 			
-			console.info("还剩这些文件没有上传:");
+			console.info("These files unuploaded:");
 			console.info(this.uploadFile);
 			return true;
 		},
@@ -132,17 +132,44 @@ var ZYFILE = {
 		funUploadFiles : function(){
 			var self = this;  // 在each中this指向没个v  所以先将this保留
 			// 遍历所有文件  ，在调用单个文件上传的方法
+
+			var xhr = new XMLHttpRequest();
+			var formdata = new FormData();
 			$.each(this.uploadFile, function(k, v){
-				self.funUploadFile(v);
-			});
+				formdata.append("fileList", v);
+			});	
+			
+			$.each(this.uploadFile, function(k, v){
+				xhr.upload.addEventListener("progress",	 function(e){
+				    self.onProgress(v, e.loaded, e.total);
+				}, false);
+				
+				xhr.addEventListener("load", function(e){
+				    self.onProgress(v, e.loaded, e.total);
+					self.funDeleteFile(v.index, false);
+					self.onSuccess(v);
+				}, false); 
+				xhr.addEventListener("error", function(e){
+					self.onFailure(v, xhr.responseText);
+				}, false); 
+			});	
+			
+			
+			
+			xhr.addEventListener("load", function(e){
+			    self.onComplete(xhr.responseText);
+			}, false);   
+				
+			xhr.open("POST",self.url, true);
+			xhr.send(formdata);		
 		},
 		// 上传单个个文件
 		funUploadFile : function(file){
 			var self = this;  // 在each中this指向没个v  所以先将this保留
-			
-			var formdata = new FormData();
-			formdata.append("fileList", file);	         		
+    		
 			var xhr = new XMLHttpRequest();
+			var formdata = new FormData();
+			formdata.append("fileList", file);	 
 			// 绑定上传事件
 			// 进度
 		    xhr.upload.addEventListener("progress",	 function(e){
@@ -157,7 +184,7 @@ var ZYFILE = {
 		    	self.onSuccess(file, xhr.responseText);
 		    	if(self.uploadFile.length==0){
 		    		// 回调全部完成方法
-		    		self.onComplete("全部完成");
+		    		self.onComplete();
 		    	}
 		    }, false);  
 		    // 错误

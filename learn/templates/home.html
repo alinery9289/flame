@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
  
 {% block title %}Recognition{% endblock %}
+
+{% block css %}<link rel="stylesheet" href="static/css/mediaUpload.css" type="text/css"/>{% endblock %}
  
 {% block content %}
 <style>
@@ -8,6 +10,5 @@
       #messages li { padding: 5px 10px; }
 </style>
 <div id="mediaupload" class="mediaupload">
-<h2>图片上传</h2></div>
-<div class="mediaupload"></div><ul id="messages"></ul></div>
+<h2>Upload Image</h2></div>
 {% endblock %}

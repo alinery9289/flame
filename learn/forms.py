@@ -6,12 +6,12 @@ Created on 2015.7.21
 '''
 
 from django import forms
- 
+
 class AddUserForm(forms.Form):
     username = forms.CharField()
     password1 = forms.CharField()
     password2 = forms.CharField()
     email = forms.CharField()
-    
+
 class UploadForm(forms.Form):
     fileList = forms.FileField()

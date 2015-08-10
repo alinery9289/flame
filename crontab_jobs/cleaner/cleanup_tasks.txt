@@ -1,0 +1,13 @@
+# note: the bash script must be in absolute path
+
+# repeat job every minute
+#* * * * * sh /home/medialab/deploy/flame/crontab_jobs/cleaner/cleaner.sh
+
+# repeat at the 3rd and 15th minute of every hour
+#3,15 * * * * your_command
+
+# repeat at the 3rd and 15th minute of during 08:00 AM - 11:00 AM
+#3,15 8-11 * * * your_command
+
+# 01:30 AM each day
+30 1 * * * sh /home/medialab/deploy/flame/crontab_jobs/cleaner/cleaner.sh
